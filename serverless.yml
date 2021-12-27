@@ -1,0 +1,26 @@
+service:
+  name: serverless-example
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
+
+functions:
+  main:
+    handler: apps/sites/src/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
